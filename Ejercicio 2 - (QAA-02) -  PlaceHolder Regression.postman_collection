@@ -1,0 +1,5824 @@
+{
+	"info": {
+		"_postman_id": "fbdcb78c-5f4f-4a57-9f2c-a1da7b482742",
+		"name": "Regression_PlaceHolder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Users - Todos - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('name');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('username');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('email');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('address');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('phone');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('website');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('company');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"urlplaceh\", \"https://jsonplaceholder.typicode.com\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - EndPointErroneo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO RECIBIDO\r",
+									"pm.test(\"Respuesta esperada NOT FOUND 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/userr",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"userr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//INTEGRIDAD DE LOS DATOS\r",
+									"pm.test(\"Integridad de la data retornada OK\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(5);\r",
+									"    pm.expect(jsonData.name).to.eql(\"Chelsey Dietrich\");\r",
+									"    pm.expect(jsonData.username).to.eql(\"Kamren\");\r",
+									"    pm.expect(jsonData.email).to.eql(\"Lucio_Hettinger@annie.ca\");\r",
+									"    pm.expect(jsonData.address.street).to.eql(\"Skiles Walks\");\r",
+									"    pm.expect(jsonData.address.suite).to.eql(\"Suite 351\");\r",
+									"    pm.expect(jsonData.address.city).to.eql(\"Roscoeview\");\r",
+									"    pm.expect(jsonData.address.zipcode).to.eql(\"33263\");\r",
+									"    pm.expect(jsonData.address.geo.lat).to.eql(\"-31.8129\");    \r",
+									"    pm.expect(jsonData.address.geo.lng).to.eql(\"62.5342\");       \r",
+									"    pm.expect(jsonData.phone).to.eql(\"(254)954-1289\");\r",
+									"    pm.expect(jsonData.website).to.eql(\"demarco.info\");\r",
+									"    pm.expect(jsonData.company.name).to.eql(\"Keebler LLC\");    \r",
+									"    pm.expect(jsonData.company.catchPhrase).to.eql(\"User-centric fault-tolerant solution\"); \r",
+									"    pm.expect(jsonData.company.bs).to.eql(\"revolutionize end-to-end systems\"); \r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"//TIPO DE DATOS\r",
+									"pm.test(\"Tipos de datos de las propiedades OK\" , function() {\r",
+									"    pm.expect(pm.response.json().id).to.be.a(\"number\");\r",
+									"    pm.expect(pm.response.json().name).to.be.a(\"string\");\r",
+									"    pm.expect(pm.response.json().username).to.be.a(\"string\");\r",
+									"    pm.expect(pm.response.json().email).to.be.a(\"string\");\r",
+									"    pm.expect(pm.response.json().address.street).to.be.a(\"string\");   \r",
+									"    pm.expect(pm.response.json().address.suite).to.be.a(\"string\");   \r",
+									"    pm.expect(pm.response.json().address.city).to.be.a(\"string\");   \r",
+									"    pm.expect(pm.response.json().address.zipcode).to.be.a(\"string\");  \r",
+									"    pm.expect(pm.response.json().address.geo.lat).to.be.a(\"string\");  \r",
+									"    pm.expect(pm.response.json().address.geo.lng).to.be.a(\"string\");     \r",
+									"    pm.expect(pm.response.json().phone).to.be.a(\"string\");\r",
+									"    pm.expect(pm.response.json().website).to.be.a(\"string\");   \r",
+									"    pm.expect(pm.response.json().company.name).to.be.a(\"string\");   \r",
+									"    pm.expect(pm.response.json().company.catchPhrase).to.be.a(\"string\");   \r",
+									"    pm.expect(pm.response.json().company.bs).to.be.a(\"string\");   \r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users/5",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - TipoDecimalInvalido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?id=1.2",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1.2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?id=1000000000000000000000000",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1000000000000000000000000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - TipoInvalidoLetras",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?id=A",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?id=$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "$%^"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - NoExiste",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?id=20",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - Vacio",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?id=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - Name - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//INTEGRIDAD DE LOS DATOS\r",
+									"pm.test(\"Integridad de la data retornada OK\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(1);\r",
+									"    pm.expect(jsonData.name).to.eql(\"Leanne Graham\");\r",
+									"    pm.expect(jsonData.username).to.eql(\"Bret\");\r",
+									"    pm.expect(jsonData.email).to.eql(\"Sincere@april.biz\");\r",
+									"    pm.expect(jsonData.address.street).to.eql(\"Kulas Light\");\r",
+									"    pm.expect(jsonData.address.suite).to.eql(\"Apt. 556\");\r",
+									"    pm.expect(jsonData.address.city).to.eql(\"Gwenborough\");\r",
+									"    pm.expect(jsonData.address.zipcode).to.eql(\"92998-3874\");\r",
+									"    pm.expect(jsonData.address.geo.lat).to.eql(\"-37.3159\");    \r",
+									"    pm.expect(jsonData.address.geo.lng).to.eql(\"81.1496\"); \r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users/1?Name=Leanne Graham",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users",
+								"1"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "Leanne Graham"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - Name - SinRelacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?id=1&Name=Ervin Howell",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "Name",
+									"value": "Ervin Howell"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - UserName - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//INTEGRIDAD DE LOS DATOS\r",
+									"pm.test(\"Validando la integridad de la data retornada\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(10);\r",
+									"    pm.expect(jsonData.name).to.eql(\"Clementina DuBuque\");\r",
+									"    pm.expect(jsonData.username).to.eql(\"Moriah.Stanton\");\r",
+									"    pm.expect(jsonData.email).to.eql(\"Rey.Padberg@karina.biz\");\r",
+									"    pm.expect(jsonData.address.street).to.eql(\"Kattie Turnpike\");\r",
+									"    pm.expect(jsonData.address.suite).to.eql(\"Suite 198\");\r",
+									"    pm.expect(jsonData.address.city).to.eql(\"Lebsackbury\");\r",
+									"    pm.expect(jsonData.address.zipcode).to.eql(\"31428-2261\");\r",
+									"    pm.expect(jsonData.address.geo.lat).to.eql(\"-38.2386\");    \r",
+									"    pm.expect(jsonData.address.geo.lng).to.eql(\"57.2232\"); \r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users/10?Username=Moriah.Stanton",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users",
+								"10"
+							],
+							"query": [
+								{
+									"key": "Username",
+									"value": "Moriah.Stanton"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - UserName - SinRelacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users/2?Username=Samantha",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users",
+								"2"
+							],
+							"query": [
+								{
+									"key": "Username",
+									"value": "Samantha"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - Email - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//INTEGRIDAD DE LOS DATOS\r",
+									"pm.test(\"Validando la integridad de la data retornada\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(8);\r",
+									"    pm.expect(jsonData.name).to.eql(\"Nicholas Runolfsdottir V\");\r",
+									"    pm.expect(jsonData.username).to.eql(\"Maxime_Nienow\");\r",
+									"    pm.expect(jsonData.email).to.eql(\"Sherwood@rosamond.me\");\r",
+									"    pm.expect(jsonData.address.street).to.eql(\"Ellsworth Summit\");\r",
+									"    pm.expect(jsonData.address.suite).to.eql(\"Suite 729\");\r",
+									"    pm.expect(jsonData.address.city).to.eql(\"Aliyaview\");\r",
+									"    pm.expect(jsonData.address.zipcode).to.eql(\"45169\");\r",
+									"    pm.expect(jsonData.address.geo.lat).to.eql(\"-14.3990\");    \r",
+									"    pm.expect(jsonData.address.geo.lng).to.eql(\"-120.7677\");       \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users/8?email=Sherwood@rosamond.me",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users",
+								"8"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "Sherwood@rosamond.me"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - ID - Email - SinRelacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Validando la respuesta esperada 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?id=5&email=Julianne.OConner@kory.org",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5"
+								},
+								{
+									"key": "email",
+									"value": "Julianne.OConner@kory.org"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Name - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?name=Ervin Howell",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Ervin Howell"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Name - SensitiveCase(Mayuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK, no deberia ser sensible a mayusculas y minusculas\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('name');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('username');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('email');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('address');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('phone');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('website');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('company');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?name=ERVIN HOWELL",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "ERVIN HOWELL"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Name - SensitiveCase(Minuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK, no deberia ser sensible a mayusculas y minusculas\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('name');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('username');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('email');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('address');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('phone');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('website');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('company');\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?name=ervin howell",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "ervin howell"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Name - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?name=Ervin Howellllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Ervin Howellllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Name - TipoInvalidoNum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?name={{$randomInt}}",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{$randomInt}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Name - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?name=$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "$%^"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Name - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validando la respuesta esperada 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?name={{$randomFirstName}}",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{$randomFirstName}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Name - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest, 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?name=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Name - UserName - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?Name=Leanne Graham&Username=Bret",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "Leanne Graham"
+								},
+								{
+									"key": "Username",
+									"value": "Bret"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Name - UserName - SinRelacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?Name=Ervin Howell&Username=Bret",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "Ervin Howell"
+								},
+								{
+									"key": "Username",
+									"value": "Bret"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - UserName - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?username=Samantha",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Samantha"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - UserName - SensitiveCase(Mayuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK, no deberia ser sensible a mayusculas y minusculas\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('name');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('username');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('email');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('address');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('phone');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('website');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('company');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?username=SAMANTHA",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "SAMANTHA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - UserName - SensitiveCase(Minuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK, no deberia ser sensible a mayusculas y minusculas\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('name');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('username');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('email');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('address');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('phone');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('website');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('company');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?username=samantha",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "samantha"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - UserName - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?username=Samanthaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Samanthaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - UserName - TipoInvalidoNum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?username=589",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "589"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - UserName - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?username=$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "$%^"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - UserName - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?username={{$randomUserName}}",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "{{$randomUserName}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - UserName - Email - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?Username=Karianne&email=Julianne.OConner@kory.org",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "Username",
+									"value": "Karianne"
+								},
+								{
+									"key": "email",
+									"value": "Julianne.OConner@kory.org"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - UserName - Email - SinRelacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Validando la respuesta esperada 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?Username=Bret&email=Julianne.OConner@kory.org",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "Username",
+									"value": "Bret"
+								},
+								{
+									"key": "email",
+									"value": "Julianne.OConner@kory.org"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users -  Email - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?email=Karley_Dach@jasper.info",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "Karley_Dach@jasper.info"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users -  Email - SensitiveCase(Mayus)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//ESTADO RECIBIDO\r",
+									"pm.test(\"Validando la respuesta esperada 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?email=KARLEY_DACH@JASPER.INFO",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "KARLEY_DACH@JASPER.INFO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Email - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?email=Pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@gmail.com",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "Pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Email - FormatoCorreoInvalido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validando la respuesta esperada 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?email=Karley_Dach",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "Karley_Dach"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Email - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validando la respuesta esperada 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?email=^&%",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "^"
+								},
+								{
+									"key": "%",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Email - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?email=Prueba@prueba.com",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "Prueba@prueba.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Email - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest, 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?email=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressStreet - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.street=Kulas Light",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.street",
+									"value": "Kulas Light"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressStreet - SensitiveCase(Mayuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK, no deberia ser sensible a mayusculas y minusculas\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('name');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('username');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('email');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('address');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('phone');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('website');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('company');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.street=KULAS LIGHT",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.street",
+									"value": "KULAS LIGHT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressStreet - SensitiveCase(Minuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK, no deberia ser sensible a mayusculas y minusculas\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('name');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('username');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('email');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('address');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('phone');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('website');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('company');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.street=kulas light",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.street",
+									"value": "kulas light"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressStreet - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.street=Kulas Lighttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.street",
+									"value": "Kulas Lighttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressStreet - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.street=#$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.street",
+									"value": ""
+								}
+							],
+							"hash": "$%^"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressStreet - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.street=Kulas Lightt",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.street",
+									"value": "Kulas Lightt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressStreet - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.street=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.street",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressSuite - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.suite=Apt. 556",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.suite",
+									"value": "Apt. 556"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressSuite - SensitiveCase(Mayuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK, no deberia ser sensible a mayusculas y minusculas\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('name');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('username');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('email');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('address');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('phone');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('website');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('company');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.suite=APT. 556",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.suite",
+									"value": "APT. 556"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressSuite - SensitiveCase(Minuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK, no deberia ser sensible a mayusculas y minusculas\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('name');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('username');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('email');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('address');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('phone');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('website');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('company');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.suite=apt. 556",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.suite",
+									"value": "apt. 556"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressSuite - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.suite=Apt. 5566666666666666666666666666666666666666666666666666666666666",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.suite",
+									"value": "Apt. 5566666666666666666666666666666666666666666666666666666666666"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressSuite - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.suite=#$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.suite",
+									"value": ""
+								}
+							],
+							"hash": "$%^"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressSuite - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.suite=Apt. 5566",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.suite",
+									"value": "Apt. 5566"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressSuite - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.suite=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.suite",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressCity - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.city=Gwenborough",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.city",
+									"value": "Gwenborough"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressCity - SensitiveCase(Mayuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK, no deberia ser sensible a mayusculas y minusculas\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('name');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('username');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('email');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('address');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('phone');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('website');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('company');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.city=GWENBOROUGHT",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.city",
+									"value": "GWENBOROUGHT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressCity - SensitiveCase(Minuscula) Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK, no deberia ser sensible a mayusculas y minusculas\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('name');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('username');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('email');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('address');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('phone');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('website');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('company');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.city=gwenborought",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.city",
+									"value": "gwenborought"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressCity - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.city=Gwenboroughhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.city",
+									"value": "Gwenboroughhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressCity - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.city=#$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.city",
+									"value": ""
+								}
+							],
+							"hash": "$%^"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressCity - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.city=Gwenboroughe",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.city",
+									"value": "Gwenboroughe"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressCity - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.city=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.city",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressZipCode - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.zipcode=92998-3874",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.zipcode",
+									"value": "92998-3874"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressZipCode - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.zipcode=92998-38744444444444444444444444444444444444",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.zipcode",
+									"value": "92998-38744444444444444444444444444444444444"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressZipCode - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.zipcode=#$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.zipcode",
+									"value": ""
+								}
+							],
+							"hash": "$%^"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressZipCode - TipoInvalidoLetras",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.zipcode=AAAAA",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.zipcode",
+									"value": "AAAAA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressZipCode - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.zipcode=92998-3974",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.zipcode",
+									"value": "92998-3974"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressZipCode - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest, 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.zipcode=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.zipcode",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLat - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lat=-37.3159",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lat",
+									"value": "-37.3159"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLat - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lat=-37.315977777777777777777777777777777777777777777777",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lat",
+									"value": "-37.315977777777777777777777777777777777777777777777"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLat - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lat=#$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lat",
+									"value": ""
+								}
+							],
+							"hash": "$%^"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLat - TipoInvalidoLetras",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lat=AAAAA",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lat",
+									"value": "AAAAA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLat - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lat=-37.3169",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lat",
+									"value": "-37.3169"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLat - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lat=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lat",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLng - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lng=81.1496",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lng",
+									"value": "81.1496"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLng - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lng=81.1496666666666666666666666666666666666",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lng",
+									"value": "81.1496666666666666666666666666666666666"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLng - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lng=#$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lng",
+									"value": ""
+								}
+							],
+							"hash": "$%^"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLng - TipoInvalidoLetras",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lng=#$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lng",
+									"value": ""
+								}
+							],
+							"hash": "$%^"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLng - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lng=81.1696",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lng",
+									"value": "81.1696"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - AddressGeoLng - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?address.geo.lng=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "address.geo.lng",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Phone - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?phone=(254)954-1289",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": "(254)954-1289"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Phone - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?phone=(254)954-12899999999999999999999999999999999",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": "(254)954-12899999999999999999999999999999999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Phone - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?phone=(254)9$%^-1289",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": "(254)9$%^-1289"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Phone - TipoInvalidoLetras",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?phone=(254)AA4-1289",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": "(254)AA4-1289"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Phone - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?phone=(254)954-1309",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": "(254)954-1309"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - Phone - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest, 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?phone=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - WebSite - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?website=demarco.info",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "website",
+									"value": "demarco.info"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users - WebSite - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/users?website=demarco.infoooooooooooooooooooooooooooooooooooooooo",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "website",
+									"value": "demarco.infoooooooooooooooooooooooooooooooooooooooo"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Albums",
+			"item": [
+				{
+					"name": "Albums - Todos - HappyPath",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('userId');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('title');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - EndPointErroneo",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO RECIBIDO\r",
+									"pm.test(\"Respuesta esperada NOT FOUND 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/arbums",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"arbums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - ID - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//INTEGRIDAD DE LOS DATOS\r",
+									"pm.test(\"Integridad de la data retornada\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.userId).to.eql(10);\r",
+									"    pm.expect(jsonData.id).to.eql(99);\r",
+									"    pm.expect(jsonData.title).to.eql(\"consectetur ut id impedit dolores sit ad ex aut\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIPO DE DATOS\r",
+									"pm.test(\"Tipo de datos de las propiedades OK\" , function() {\r",
+									"    pm.expect(pm.response.json().userId).to.be.a(\"number\");\r",
+									"    pm.expect(pm.response.json().id).to.be.a(\"number\");\r",
+									"    pm.expect(pm.response.json().title).to.be.a(\"string\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums/99",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums",
+								"99"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - ID - TipoDecimalInvalido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?id=1.2",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1.2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - ID - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?id=111111111111111111111111111111111111111",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "111111111111111111111111111111111111111"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - ID - TipoInvalidoLetras",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?id=AA",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "AA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - ID - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?id=$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "$%^"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - ID - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?id=101",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "101"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - ID - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?id=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - UserID - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Validando la respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?userId=10",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - UserID - Decimal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?userId=1.2",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1.2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - UserID - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?userId=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - UserID - TipoInvalidoLetras",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?userId=AAA",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "AAA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - UserID - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?userId=#$%",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": ""
+								}
+							],
+							"hash": "$%"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - UserID - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?userId=21",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "21"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - UserID - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?userId=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - Title - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?title=omnis quia possimus nesciunt deleniti assumenda sed autem",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "omnis quia possimus nesciunt deleniti assumenda sed autem"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - Title - SensitiveCase(Mayuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('userId');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('title');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?title=OMNIS QUIA POSSIMUS NESCIUNT DELENITI ASSUMENDA SED AUTEM\n",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "OMNIS QUIA POSSIMUS NESCIUNT DELENITI ASSUMENDA SED AUTEM\n"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - Title - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?title=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - Title - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?title=#$%",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": ""
+								}
+							],
+							"hash": "$%"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - Title - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?title=xsfgtrrgggg",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "xsfgtrrgggg"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums - Title - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/albums?title=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Photos",
+			"item": [
+				{
+					"name": "Photos - Todos - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('albumId');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('title');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('url');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('thumbnailUrl');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - EndPointErroneo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO RECIBIDO\r",
+									"pm.test(\"Respuesta esperada NOT FOUND 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/potos",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"potos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - AlbumID - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//INTEGRIDAD DE LOS DATOS\r",
+									"pm.test(\"Validando la integridad de la data retornada\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.albumId).to.eql(1);\r",
+									"    pm.expect(jsonData.id).to.eql(7);\r",
+									"    pm.expect(jsonData.title).to.eql(\"officia delectus consequatur vero aut veniam explicabo molestias\");\r",
+									"    pm.expect(jsonData.url).to.eql(\"https://via.placeholder.com/600/b0f7cc\");\r",
+									"    pm.expect(jsonData.thumbnailUrl).to.eql(\"https://via.placeholder.com/150/b0f7cc\");   \r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIPO DE DATOS\r",
+									"pm.test(\"Tipo de datos de las propiedades OK\" , function() {\r",
+									"    pm.expect(pm.response.json().albumId).to.be.a(\"number\");\r",
+									"    pm.expect(pm.response.json().id).to.be.a(\"number\");\r",
+									"    pm.expect(pm.response.json().title).to.be.a(\"string\");\r",
+									"    pm.expect(pm.response.json().url).to.be.a(\"string\");\r",
+									"    pm.expect(pm.response.json().thumbnailUrl).to.be.a(\"string\");   \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos/7",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - AlbumID - TipoDecimalInvalido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?albumId=1.2",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "albumId",
+									"value": "1.2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - AlbumID - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?albumId=111111111111111111111111111111111111111",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "albumId",
+									"value": "111111111111111111111111111111111111111"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - AlbumID - TipoInvalidoLetras",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?albumId=AAA",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "albumId",
+									"value": "AAA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - AlbumID - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?albumId=#$%",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "albumId",
+									"value": ""
+								}
+							],
+							"hash": "$%"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - AlbumID - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?albumId=9000",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "albumId",
+									"value": "9000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ID - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?id=3",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ID - TipoDecimalInvalido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?id=1.3",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1.3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ID -  LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?id=33333333333333333333333333333333333333333",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "33333333333333333333333333333333333333333"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ID - TipoInvalidoLetras",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?id=AAAA",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "AAAA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ID - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?id=$%^",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "$%^"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ID - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest, 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?id=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ID - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?id=9000",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "9000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - Title - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?title=culpa odio esse rerum omnis laboriosam voluptate repudiandae",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "culpa odio esse rerum omnis laboriosam voluptate repudiandae"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - Title - SensitiveCase(Mayuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('albumId');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('title');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('url');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('thumbnailUrl');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?title=CULPA ODIO ESSE RERUM OMNIS LABORIOSAM VOLUPTATE REPUDIANDAE",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "CULPA ODIO ESSE RERUM OMNIS LABORIOSAM VOLUPTATE REPUDIANDAE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - Title - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?title=culpa odio esse rerum omnis laboriosam voluptate repudiandaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "culpa odio esse rerum omnis laboriosam voluptate repudiandaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - Title - TipoInvalidoCaract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?title=#$%",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": ""
+								}
+							],
+							"hash": "$%"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - Title - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?title=Prueba",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Prueba"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - Title - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest, 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?title=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - URL - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?url=https://via.placeholder.com/600/92c952",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "https://via.placeholder.com/600/92c952"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - URL - SensitiveCase(Mayuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('albumId');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('title');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('url');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('thumbnailUrl');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?url=https://via.PLACEHOLDER.com/600/92c952",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "https://via.PLACEHOLDER.com/600/92c952"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - URL - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validando la respuesta esperada 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?url=https://via.placeholder.com/60000000000000000000000000000000000000000000000/92c952",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "https://via.placeholder.com/60000000000000000000000000000000000000000000000/92c952"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - URL - FormatoURLInvalido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validando la respuesta esperada 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?url=Karley_Dach",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "Karley_Dach"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - URL - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?url=https://via.placeholder.com/600/92c922",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "https://via.placeholder.com/600/92c922"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - URL - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest, 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?url=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ThumbnailURL - HappyPath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//TIEMPO DE RESPUESTA\r",
+									"pm.test(\"Tiempo de respuesta menor a 300ms OK\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?thumbnailUrl=https://via.placeholder.com/150/92c952",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "thumbnailUrl",
+									"value": "https://via.placeholder.com/150/92c952"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ThumbnailURL - SensitiveCase(Mayuscula)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//ESTADO\r",
+									"pm.test(\"Respuesta esperada OK 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//VALIDANDO LA EXISTENCIA DE LAS PROPIEDADES DE RESPUESTA\r",
+									"pm.test(\"Existencia Propiedades OK\" , function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('albumId');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('title');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('url');\r",
+									"    pm.expect(jsonData[0]).to.have.a.property('thumbnailUrl');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?thumbnailUrl=https://via.PLACEHOLDER.com/150/92c952",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "thumbnailUrl",
+									"value": "https://via.PLACEHOLDER.com/150/92c952"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ThumbnailURL - LongMaxSuperada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validando la respuesta esperada 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?thumbnailUrl=https://via.placeholder.com/150/92c95222222222222222222222222222222",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "thumbnailUrl",
+									"value": "https://via.placeholder.com/150/92c95222222222222222222222222222222"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ThumbnailURL - FormatoURLInvalido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validando la respuesta esperada 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?thumbnailUrl=placeholder",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "thumbnailUrl",
+									"value": "placeholder"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ThumbnailURL - NoExiste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada NOT CONTENT 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?thumbnailUrl=https://via.placeholder.com/150/92c852",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "thumbnailUrl",
+									"value": "https://via.placeholder.com/150/92c852"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos - ThumbnailURL - Vacio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Respuesta esperada BadRequest, 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlplaceh}}/photos?thumbnailUrl=",
+							"host": [
+								"{{urlplaceh}}"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "thumbnailUrl",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "urlplaceh",
+			"value": ""
+		}
+	]
+}
